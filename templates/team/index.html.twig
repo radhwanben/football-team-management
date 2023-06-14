@@ -1,0 +1,43 @@
+{# templates/team/list.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+    <div class="card">
+    <div class="card-header">
+    List of Teams
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Country</th>
+                <th>Balance</th>
+                <th>Number of Players</th>
+                <th>Actions</th> {# Added column for actions #}
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for team in pagination %}
+                <tr>
+                    <td>{{ team.name }}</td>
+                    <td>{{ team.country }}</td>
+                    <td>{{ team.balance|number_format(0, '.', ',') }} $</td>
+                    <td>{{ team.players.count() }}</td>
+                    <td>
+                        <a href="{{ path('team_details', { 'id': team.id }) }}" class="btn btn-primary">View Details</a>
+                    </td> {# Added button to view details #}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+        <div class="pagination justify-content-center">
+            {{ knp_pagination_render(pagination, 'bootstrap_5_pagination.html.twig') }}
+        </div>
+    </div>
+    
+{% endblock %}

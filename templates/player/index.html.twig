@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Player Information{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-11">Player Information</div>
+                <div class="col-md-1">
+                    <a class="btn btn-warning" href="{{ path('team_list') }}">Teams</a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="mb-4">
+                <h5 class="card-title">Name: {{ player.name }}</h5>
+                <h5 class="card-title">Surname: {{ player.surname }}</h5>
+                <h5 class="card-title">Current Team: {{ player.team.name }}</h5>
+            </div>
+
+            <h5 class="card-title">Transfer History:</h5>
+            {% for transfer in pagination %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <p class="card-text">Last Transfer Price: {{ transfer.amount|number_format(0, '.', ',') }} $</p>
+                    <p class="card-text">Old Team: {{ transfer.sellingTeam.name }}</p>
+                    <p class="card-text">Current Team: {{ transfer.buyingTeam.name }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+          <div class="pagination justify-content-center">
+            {{ knp_pagination_render(pagination, 'bootstrap_5_pagination.html.twig') }}
+        </div>
+    </div>
+</div>
+{% endblock %}

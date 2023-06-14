@@ -1,0 +1,53 @@
+{% if pageCount > 1 %}
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            {% if previous is defined %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ path(route, query|merge({(pageParameterName): first})) }}" aria-label="First">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="visually-hidden">First</span>
+                    </a>
+                </li>
+            {% endif %}
+
+            {% if previous is defined %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ path(route, query|merge({(pageParameterName): previous})) }}" aria-label="Previous">
+                        <span aria-hidden="true">&lsaquo;</span>
+                        <span class="visually-hidden">Previous</span>
+                    </a>
+                </li>
+            {% endif %}
+
+            {% for num in pagesInRange %}
+                {% if num == current %}
+                    <li class="page-item active">
+                        <span class="page-link">{{ num }}</span>
+                    </li>
+                {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ path(route, query|merge({(pageParameterName): num})) }}">{{ num }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if next is defined %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ path(route, query|merge({(pageParameterName): next})) }}" aria-label="Next">
+                        <span aria-hidden="true">&rsaquo;</span>
+                        <span class="visually-hidden">Next</span>
+                    </a>
+                </li>
+            {% endif %}
+
+            {% if next is defined %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ path(route, query|merge({(pageParameterName): last})) }}" aria-label="Last">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="visually-hidden">Last</span>
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endif %}
